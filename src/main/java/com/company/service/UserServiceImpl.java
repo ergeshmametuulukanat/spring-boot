@@ -1,6 +1,6 @@
 package com.company.service;
 
-import com.company.dao.UserDao;
+import com.company.repository.UserRepository;
 import com.company.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,30 +11,25 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Override
-    public List<User> getAllUsers() {
-        return userDao.getAllUsers();
-    }
-
-    @Override
-    public void add(User user) {
-        userDao.add(user);
+    public List<User> findAll() {
+        return (List<User>) userRepository.findAll();
     }
 
     @Override
     public void delete(User user) {
-        userDao.delete(user);
+        userRepository.delete(user);
     }
 
     @Override
-    public void update(User user) {
-        userDao.update(user);
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     @Override
-    public User getById(long id) {
-        return userDao.getById(id);
+    public User findById(long id) {
+        return userRepository.findById(id).orElse(null);
     }
 }
